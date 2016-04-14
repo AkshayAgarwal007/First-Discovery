@@ -56,7 +56,7 @@ FDOP.Game.prototype = {
         player1.scale.x*=-1;
         player1.body.velocity.x=0;
         
-        player = this.add.sprite(250,FDOP.GAME_HEIGHT-200,'player');
+        player = this.add.sprite(250,FDOP.GAME_HEIGHT-200,'playernew');
     	this.physics.arcade.enable(player);
         player.body.gravity.y = 300;
         player.body.collideWorldBounds = true;
@@ -65,12 +65,19 @@ FDOP.Game.prototype = {
         player.animations.add('idle',[0,1],8,true);
         player.animations.add('run', [2,3,4,5,6],8,true);
         
-        sound1 = this.add.audio('sound1');
-        sound2 = this.add.audio('sound2');
-        sound3 = this.add.audio('sound3');
-        sound4 = this.add.audio('sound4');
-        sound5 = this.add.audio('sound5');
-        sound6 = this.add.audio('sound6');
+        sound1 = this.add.audio('sound1_');
+        sound2 = this.add.audio('sound2_');
+        sound3 = this.add.audio('sound3_');
+        sound4 = this.add.audio('sound4_');
+        sound5 = this.add.audio('sound5_');
+        sound6 = this.add.audio('sound6_');
+        
+        main_menu= this.add.button(this.game.camera.width-100, 25,'main_menu',this.backtoLevels,this);
+        main_menu.scale.setTo(0.5,0.5);
+        main_menu.alpha=0.8;
+        main_menu.events.onInputOver.add(this.over, this);
+        main_menu.events.onInputOut.add(this.out, this);
+        main_menu.fixedToCamera=true;
         
         cursors = this.input.keyboard.createCursorKeys();
         this.game.camera.follow(player);
@@ -159,6 +166,20 @@ FDOP.Game.prototype = {
         
         if (this.interactOver==false)
         this.wizardInteraction();
+    },
+    
+    
+    backtoLevels: function() {
+        this.shutdown();
+        this.state.start('Levels',true,false);
+    },
+    
+    over: function(btn) {
+        btn.alpha = 1.0;
+    },
+    
+    out: function(btn) {
+        btn.alpha=0.8;
     },
     
     
@@ -293,6 +314,24 @@ FDOP.Game.prototype = {
         
         playSound: function() {
             this.dart_snd.play('',0,1,true);
+            
+        },
+        
+        shutdown: function() {
+            this.ground=[];
+            this.c=[];
+            this.playDartSound=false;
+            this.playerInfo=false;
+            this.playerLock=false;
+            this.moveRight=true;
+            this.wizardRight=false;
+            this.interactOver=false;
+            this.turn=0;
+            this.decision=null;
+            this.wizardDialog=['Hey!\nYoung Man','I would want to\nbe your friend'];
+            this.playerDialog = ['Thanks, I\'m\ncool alone','Yeah Sure!\nMee too..',];
+            this.userInputTake=false;
+            this.follow=false;
             
         }
         

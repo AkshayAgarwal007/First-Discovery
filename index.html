@@ -7,7 +7,11 @@
 	<script src="src/phaser-2.0.6.min.js"></script>
 	<script src="src/Boot.js"></script>
 	<script src="src/Preloader.js"></script>
-    <script src="src/Game.js"></script>
+	<script src="src/MainMenu.js"></script>
+    <script src="src/Levels.js"></script>
+	<script src="src/Game.js"></script>
+	<script src="src/Game1.js"></script>
+	<script src="src/Game2.js"></script>
 	
 </head>
 <body>
@@ -16,7 +20,11 @@
 	var game = new Phaser.Game(1366,768, Phaser.AUTO, 'game');
 	game.state.add('Boot', FDOP.Boot);
 	game.state.add('Preloader', FDOP.Preloader);
+	game.state.add('MainMenu', FDOP.MainMenu);
+	game.state.add('Levels', FDOP.Levels);
 	game.state.add('Game', FDOP.Game);
+	game.state.add('Game1', FDOP.Game1);
+	game.state.add('Game2', FDOP.Game2);
 	game.state.start('Boot');
 })();
 </script>
